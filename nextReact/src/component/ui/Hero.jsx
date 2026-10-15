@@ -85,7 +85,7 @@ const Hero = () => {
                     <div
                         key={message.heading}
                         aria-hidden={activeMessage !== index}
-                        className={`absolute inset-0 z-10 flex items-center justify-center px-5 pt-24 pb-28 text-center transition-all duration-500 sm:px-8 ${
+                        className={`absolute inset-0 z-10 flex items-center justify-center px-5 pt-20 pb-32 text-center transition-all duration-500 sm:px-8 sm:pt-24 sm:pb-28 ${
                             activeMessage === index
                                 ? "translate-x-0 opacity-100"
                                 : "-translate-x-4 opacity-0 pointer-events-none"
@@ -139,8 +139,9 @@ const Hero = () => {
 
                 
 
-                {/* Screen indicators / Scroller */}
-                <div className="absolute bottom-6 left-4 z-20 flex flex-row items-center gap-2 sm:left-6 sm:gap-3 md:bottom-auto md:left-auto md:right-10 md:top-1/2 md:-translate-y-1/2 md:flex-col md:gap-4">
+                {/* Screen indicators / Scroller */}        
+                <div className="absolute bottom-20 left-0 right-0 z-20 flex flex-row items-center justify-center gap-4 md:bottom-auto md:left-auto md:right-10 md:top-1/2 md:-translate-y-1/2 md:flex-col md:gap-4">
+
                     {messages.map((message, index) => (
                         <button
                             key={message.heading}
@@ -180,7 +181,7 @@ const Hero = () => {
                 </div>
    
                 {/* Video Controls */}
-                <div className="absolute bottom-4 right-4 z-30 flex items-center gap-2 sm:bottom-6 sm:right-6 sm:gap-3 md:bottom-8 md:right-10">
+                <div className="absolute right-4 top-20 z-30 flex items-center gap-2 sm:right-6 sm:gap-3 md:bottom-8 md:right-10 md:top-auto">
 
                     {/* Play / Pause Button */}
                     <button
