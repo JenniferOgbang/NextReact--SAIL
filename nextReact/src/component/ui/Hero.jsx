@@ -1,5 +1,9 @@
 import Video from "@/assets/hero/herovideo.mp4";
 import Header from "@/static/header";
+import PauseIcon from "@/assets/hero/pauseicon.svg";
+import PlayIcon from "@/assets/hero/playicon.svg";
+import VolumeIcon from "@/assets/hero/volumeicon.png";
+import MuteIcon from "@/assets/hero/muteicon.png";
 // import PhoneMockup from "@/component/ui/Phonemockup.jsx";
 import { useEffect, useRef, useState } from "react";
 
@@ -26,6 +30,9 @@ const messages = [
 const Hero = () => {
     const sectionRef = useRef(null);
     const [activeMessage, setActiveMessage] = useState(0);
+    const videoRef = useRef(null);
+    const [isPlaying, setIsPlaying] = useState(true);
+    const [isMuted, setIsMuted] = useState(true);
 
     useEffect(() => {
         const updateActiveMessage = () => {
@@ -59,27 +66,26 @@ const Hero = () => {
     return (
         <section ref={sectionRef} className="relative h-[300vh]">
 
-            <div className="bg-black h-screen sticky top-0 overflow-hidden">
+            <div className="sticky top-0 h-screen overflow-hidden bg-black">
                 <Header heroSectionRef={sectionRef} />
                     <video
+                        ref={videoRef}
                         src={Video}
                         autoPlay
                         muted
                         loop
                         playsInline
-                        className="absolute inset-0 h-full w-full object-cover"
-                    />
-                
+                        onPlay={() => setIsPlaying(true)}
+                        onPause={() => setIsPlaying(false)}
+                        className="absolute inset-0 h-full w-full object-cover"/>
+
                 <div className="absolute inset-0 bg-black/30" />
 
-                
                 {messages.map((message, index) => (
                     <div
                         key={message.heading}
                         aria-hidden={activeMessage !== index}
-                        className={`absolute inset-0 z-10 flex items-center transition-all duration-500 ${
-                                "justify-center text-center"
-                        } ${
+                        className={`absolute inset-0 z-10 flex items-center justify-center px-5 pt-24 pb-28 text-center transition-all duration-500 sm:px-8 ${
                             activeMessage === index
                                 ? "translate-x-0 opacity-100"
                                 : "-translate-x-4 opacity-0 pointer-events-none"
@@ -94,31 +100,24 @@ const Hero = () => {
                             </div>
                         </div>
                         )} */}
-                        <div className={`w-full max-w-2xl ${
-                                "mx-auto px-6 text-center"
-                            }`}
-                        >
+                        <div className="mx-auto w-full max-w-2xl">
 
                             {/* H1: Screen heading */}
-                            <h1 className="mb-8 mt-20 text-4xl font-bold text-white md:text-6xl">
+                            <h1 className="mb-5 text-3xl font-bold leading-tight text-white sm:mb-7 sm:text-4xl md:text-6xl">
                                 {message.heading}
                             </h1>
 
                             {/* Paragraph: Screen description */}
-                            <p className="mb-10 max-w-xl text-base leading-7 text-white md:text-lg">
+                            <p className="mx-auto mb-6 max-w-xl text-sm leading-6 text-white sm:mb-8 sm:text-base sm:leading-7 md:text-lg">
                                 {message.paragraph}
                             </p>
 
                             {/* Two buttons */}
-                            <div
-                                className={`flex flex-wrap gap-4 ${
-                                    "justify-center "
-                                }`}
-                            >
+                            <div className="flex flex-wrap justify-center gap-3 sm:gap-4">
                                 {/* Primary button appears on all three screens */}
                                 <button
                                     type="button"
-                                    className="rounded-full bg-[#355847] px-6 py-3 font-semibold text-white transition hover:bg-[#A8B9A0] hover:text-white hover:border-none"
+                                    className="rounded-full bg-[#355847] px-5 py-3 text-sm font-semibold text-white transition hover:border-none hover:bg-[#A8B9A0] hover:text-white sm:px-6 sm:text-base"
                                 >
                                     {message.primaryButton}
                                 </button>
@@ -127,7 +126,7 @@ const Hero = () => {
                                 {index === 0 && (
                                     <button
                                         type="button"
-                                        className="rounded-full border border-[#355847] px-6 py-3 font-semibold text-white transition hover:bg-[#A8B9A0] hover:text-white"
+                                        className="rounded-full border border-[#355847] px-5 py-3 text-sm font-semibold text-white transition hover:bg-[#A8B9A0] hover:text-white sm:px-6 sm:text-base"
                                     >
                                         {message.secondaryButton}
                                     </button>
@@ -141,7 +140,7 @@ const Hero = () => {
                 
 
                 {/* Screen indicators / Scroller */}
-                <div className="absolute right-6 top-1/2 z-20 flex -translate-y-1/2 flex-col items-center gap-4 md:right-10">
+                <div className="absolute bottom-6 left-4 z-20 flex flex-row items-center gap-2 sm:left-6 sm:gap-3 md:bottom-auto md:left-auto md:right-10 md:top-1/2 md:-translate-y-1/2 md:flex-col md:gap-4">
                     {messages.map((message, index) => (
                         <button
                             key={message.heading}
@@ -179,7 +178,54 @@ const Hero = () => {
                         </button>
                     ))}
                 </div>
+   
+                {/* Video Controls */}
+                <div className="absolute bottom-4 right-4 z-30 flex items-center gap-2 sm:bottom-6 sm:right-6 sm:gap-3 md:bottom-8 md:right-10">
 
+                    {/* Play / Pause Button */}
+                    <button
+                        type="button"
+                        aria-label={isPlaying ? "Pause background video" : "Play background video"}
+                        onClick={() => {
+                            const video = videoRef.current;
+                            if (!video) return;
+
+                            if (video.paused) {
+                                video.play().catch(() => {});
+                            } else {
+                                video.pause();
+                            }
+                        }}
+                        className="flex h-10 w-10 items-center justify-center rounded-full border border-[#A8B9A0] bg-[#A8B9A0]/40 p-2.5 backdrop-blur-md transition hover:bg-[#A8B9A0]/70 sm:h-11 sm:w-11 sm:p-3"
+                    >
+                        <img
+                            src={isPlaying ? PauseIcon : PlayIcon}
+                            alt=""
+                            className="h-full w-full object-contain"
+                        />
+                    </button>
+
+                    {/* Sound / Mute Button */}
+                    <button
+                        type="button"
+                        aria-label={isMuted ? "Unmute background video" : "Mute background video"}
+                        onClick={() => {
+                            const video = videoRef.current;
+                            if (!video) return;
+
+                            video.muted = !isMuted;
+                            setIsMuted(video.muted);
+                        }}
+                        className="flex h-10 w-10 items-center justify-center rounded-full border border-[#A8B9A0] bg-[#A8B9A0]/40 p-2.5 backdrop-blur-md transition hover:bg-[#A8B9A0]/70 sm:h-11 sm:w-11 sm:p-3"
+                    >
+                        <img
+                            src={isMuted ? MuteIcon : VolumeIcon}
+                            alt=""
+                            className="h-full w-full object-contain"
+                        />
+                    </button>
+
+                </div>
 
 
             </div>
