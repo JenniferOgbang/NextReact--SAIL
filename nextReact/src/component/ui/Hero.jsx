@@ -1,6 +1,8 @@
 import Video from "@/assets/hero/herovideo.mp4";
 import Header from "@/static/header";
+// import PhoneMockup from "@/component/ui/Phonemockup.jsx";
 import { useEffect, useRef, useState } from "react";
+
 
 const messages = [
     {
@@ -76,9 +78,7 @@ const Hero = () => {
                         key={message.heading}
                         aria-hidden={activeMessage !== index}
                         className={`absolute inset-0 z-10 flex items-center transition-all duration-500 ${
-                            index === 0
-                                ? "justify-start"
-                                : "justify-center text-center"
+                                "justify-center text-center"
                         } ${
                             activeMessage === index
                                 ? "translate-x-0 opacity-100"
@@ -86,10 +86,16 @@ const Hero = () => {
                                 
                         }`}
                     >
+                        {/* Phone mockup — Screen 1 only
+                        {index === 0 && (
+                        <div className="absolute right-35 top-[55%] z-10 hidden -translate-y-1/2 xl:block">
+                            <div className="scale-100">
+                                <PhoneMockup />
+                            </div>
+                        </div>
+                        )} */}
                         <div className={`w-full max-w-2xl ${
-                                index === 0
-                                    ? "ml-10 md:ml-20"
-                                    : "mx-auto px-6 text-center"
+                                "mx-auto px-6 text-center"
                             }`}
                         >
 
@@ -106,7 +112,7 @@ const Hero = () => {
                             {/* Two buttons */}
                             <div
                                 className={`flex flex-wrap gap-4 ${
-                                    index === 0 ? "justify-start" : "justify-center"
+                                    "justify-center "
                                 }`}
                             >
                                 {/* Primary button appears on all three screens */}
