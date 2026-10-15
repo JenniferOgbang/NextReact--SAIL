@@ -1,5 +1,5 @@
 import Video from "@/assets/hero/herovideo.mp4";
-import Header from "@/static/header";
+import Header from "@/static/Header";
 import PauseIcon from "@/assets/hero/pauseicon.svg";
 import PlayIcon from "@/assets/hero/playicon.svg";
 import VolumeIcon from "@/assets/hero/volumeicon.png";
@@ -117,7 +117,7 @@ const Hero = () => {
                                 {/* Primary button appears on all three screens */}
                                 <button
                                     type="button"
-                                    className="rounded-full bg-[#355847] px-5 py-3 text-sm font-semibold text-white transition hover:border-none hover:bg-[#A8B9A0] hover:text-white sm:px-6 sm:text-base"
+                                    className="rounded-full bg-[#355847] px-5 py-3 text-sm font-semibold text-white transition hover:border-none hover:bg-[#294536] hover:text-white sm:px-6 sm:text-base"
                                 >
                                     {message.primaryButton}
                                 </button>
@@ -126,7 +126,7 @@ const Hero = () => {
                                 {index === 0 && (
                                     <button
                                         type="button"
-                                        className="rounded-full border border-[#355847] px-5 py-3 text-sm font-semibold text-white transition hover:bg-[#A8B9A0] hover:text-white sm:px-6 sm:text-base"
+                                        className="rounded-full border border-[#355847] px-5 py-3 text-sm font-semibold text-white transition hover:bg-[#294536] hover:text-white sm:px-6 sm:text-base"
                                     >
                                         {message.secondaryButton}
                                     </button>
