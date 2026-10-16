@@ -1,5 +1,5 @@
 import Video from "@/assets/hero/herovideo.mp4";
-import Header from @"/static/Header.jsx";
+import Header from "@/static/Header.jsx";
 import PauseIcon from "@/assets/hero/pauseicon.svg";
 import PlayIcon from "@/assets/hero/playicon.svg";
 import VolumeIcon from "@/assets/hero/volumeicon.png";
