@@ -1,4 +1,3 @@
-
 import { useEffect, useRef, useState } from "react";
 import TestimonyCard from "@/component/reuseable/Testimonycard";
 
@@ -91,37 +90,38 @@ const UserTestimonies = () => {
 
     useEffect(() => {
         const carousel = carouselRef.current;
-        if (!carousel) return;
 
+        if (!carousel) return;
         const updateVisibleCount = () => {
-            const container = carousel.getBoundingClientRect();
             const cards = Array.from(carousel.children);
 
-            const visibleCards = cards.filter((card) => {
-                const rect = card.getBoundingClientRect();
-
-                return (
-                    rect.left >= container.left - 1 &&
-                    rect.right <= container.right + 1
-                );
+            if (cards.length === 0) return;
+            const carouselRight =
+                carousel.getBoundingClientRect().right;
+            let lastVisibleCard = 0;
+            cards.forEach((card, index) => {
+                const cardRight = card.getBoundingClientRect().right;
+                if (cardRight <= carouselRight + 2) {
+                    lastVisibleCard = index + 1;
+                }
             });
 
-            setVisibleCount(visibleCards.length);
+            setVisibleCount(
+                lastVisibleCard || Math.min(3, cards.length)
+            );
         };
 
         updateVisibleCount();
 
-        carousel.addEventListener("scroll", updateVisibleCount, {
-            passive: true,
-        });
-
+        carousel.addEventListener("scroll", updateVisibleCount);
         window.addEventListener("resize", updateVisibleCount);
 
         return () => {
             carousel.removeEventListener("scroll", updateVisibleCount);
             window.removeEventListener("resize", updateVisibleCount);
         };
-    }, []);
+    }, [testimonies.length]);
+
 
     const scrollCarousel = (direction) => {
         const carousel = carouselRef.current;
@@ -138,7 +138,7 @@ const UserTestimonies = () => {
             id="testimonies"
             className="bg-[#FAF7F0] px-5 py-8 sm:px-8 sm:py-10 md:px-12 md:py-12"
         >
-            <div className="mx-auto max-w-7xl">
+            <div className="mx-auto max-w-7x mt-5 mb-20">
 
                 {/* Section Heading and Counter */}
                 <div className="mb-8 flex items-start justify-between gap-4 sm:mb-10">
@@ -166,7 +166,7 @@ const UserTestimonies = () => {
                 {/* Carousel */}
                 <div
                     ref={carouselRef}
-                    className="flex snap-x snap-mandatory gap-4 overflow-x-auto scroll-smooth pb-2 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+                    className="flex snap-x snap-mandatory gap-4 overflow-x-auto scroll-smooth pb-2 [scrollbar-none] [&::-webkit-scrollbar]:hidden"
                 >
                     {testimonies.map((testimony) => (
                         <div
