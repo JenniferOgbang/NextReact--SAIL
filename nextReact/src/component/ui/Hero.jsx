@@ -1,5 +1,4 @@
 import Video from "@/assets/hero/herovideo.mp4";
-import Header from "@/static/Header.jsx";
 import PauseIcon from "@/assets/hero/pauseicon.svg";
 import PlayIcon from "@/assets/hero/playicon.svg";
 import VolumeIcon from "@/assets/hero/volumeicon.png";
@@ -27,8 +26,7 @@ const messages = [
     },
 ];
 
-const Hero = () => {
-    const sectionRef = useRef(null);
+const Hero = ({ heroSectionRef }) => {
     const [activeMessage, setActiveMessage] = useState(0);
     const videoRef = useRef(null);
     const [isPlaying, setIsPlaying] = useState(true);
@@ -36,7 +34,7 @@ const Hero = () => {
 
     useEffect(() => {
         const updateActiveMessage = () => {
-            const section = sectionRef.current;
+            const section = heroSectionRef.current;
             if (!section) return;
 
             const scrollDistance = section.offsetHeight - window.innerHeight;
@@ -61,13 +59,12 @@ const Hero = () => {
             window.removeEventListener("scroll", updateActiveMessage);
             window.removeEventListener("resize", updateActiveMessage);
         };
-    }, []);
+    }, [heroSectionRef]);
 
     return (
-        <section ref={sectionRef} className="relative h-[300vh]">
+        <section ref={heroSectionRef} className="relative h-[300vh]">
 
             <div className="sticky top-0 h-screen overflow-hidden bg-black">
-                <Header heroSectionRef={sectionRef} />
                     <video
                         ref={videoRef}
                         src={Video}
@@ -149,7 +146,7 @@ const Hero = () => {
                             aria-label={`Go to screen ${index + 1}`}
                             aria-current={activeMessage === index ? "step" : undefined}
                             onClick={() => {
-                                const section = sectionRef.current;
+                                const section = heroSectionRef.current;
                                 if (!section) return;
 
                                 const scrollDistance =
