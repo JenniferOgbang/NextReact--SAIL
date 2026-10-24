@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import LogoDark from "@/assets/header/logo.svg";
-import LogoWhite from "@/assets/header/logowhite.svg";
+import LogoWhite from "@/assets/header/logowhite.svg"
 import Arrow from "@/assets/header/arrowdown.svg";
 import MenuIcon from "@/assets/header/hambuger.svg";
 import CloseIcon from "@/assets/header/cancel.svg";
@@ -16,7 +16,7 @@ const navLinks = [
   },
   {
     label: "Collaborate",
-    items: ["Partner With Us", "Become a Volunteer"],
+    items: ["Partner With Us", "Donate", "Become a Volunteer"],
   },
   {
     label: "Support",
